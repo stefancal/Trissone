@@ -56,7 +56,7 @@ h1 {
 
 
 .x-symbol {
-  color: #e74c3c;
+  color: rgb(201 19 0);
   font-weight: bold;
   font-size: 2em;
   font-family: 'Courier New', monospace;
@@ -64,7 +64,7 @@ h1 {
 }
 
 .o-symbol {
-  color: #3498db;
+  color: rgb(42 142 207);
   font-weight: bold;
   font-size: 2em;
   font-family: 'Georgia', serif;
@@ -104,13 +104,15 @@ h1 {
 }
 
 .win-x {
-  color: rgba(231, 76, 60, 0.5); /* red */
-  text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+  color: rgba(201, 19, 0, 25%); /* red */
+  text-shadow: 0 0 10px rgb(246 133 121 / 10%);
+  background-color: rgb(200 19 0 / 10%);
 }
 
 .win-o {
-  color: rgba(52, 152, 219, 0.5); /* blue */
-  text-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+  color: rgba(42, 142, 207, 25%); /* blue */
+  text-shadow: 0 0 10px rgb(97 187 248 / 10%);
+  background-color: rgb(42 142 207 / 15%);
 }
 
 .small-board {
