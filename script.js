@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let smallBoards = Array(9).fill(null).map(() => Array(9).fill(null));
     let bigBoard = Array(9).fill(null);
-    let currentPlayer = 'X';
+    let currentPlayer = 'O';
     let nextSmallTris = null;
     let gameOver = false;
 
