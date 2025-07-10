@@ -2,18 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const bigBoardEl = document.getElementById('big-board');
     const messageEl = document.getElementById('message');
 
-    // Initialize 9 small boards, each with 9 cells
     let smallBoards = Array(9).fill(null).map(() => Array(9).fill(null));
-    // Initialize the big board to track the winners of each small board
     let bigBoard = Array(9).fill(null);
-    // Randomly choose the starting player
     let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
-    // The next small board the player must play in (null = free choice)
     let nextSmallTris = null;
-    // Track whether the game is over
     let gameOver = false;
 
-    // Check if a board (small or big) has a winner
     function checkWin(board) {
         const winningLines = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -26,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 board[a] === board[b] &&
                 board[a] === board[c] &&
                 board[a] !== null &&
-                board[a] !== 'D' // Do not count draws as wins
+                board[a] !== 'D'
             ) {
                 return board[a];
             }
@@ -35,19 +29,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
-    // Check if a board is completely filled
     function isFull(board) {
         return board.every(cell => cell !== null);
     }
 
-    // Handle a player's move
     function makeMove(smallIndex, cellIndex) {
         if (gameOver) return;
 
-        // Enforce redirection unless the destination board is full or won
-        if (nextSmallTris !== null && smallIndex !== nextSmallTris) return;
+        // Enforce redirection — disallow playing elsewhere if the destination is not full
+        if (
+            nextSmallTris !== null &&
+            smallIndex !== nextSmallTris &&
+            !isFull(smallBoards[nextSmallTris])
+        ) {
+            return;
+        }
 
-        // Do not allow moves on already taken cells
+        // Prevent playing in already taken cells
         if (smallBoards[smallIndex][cellIndex] !== null) return;
 
         // Record the move
@@ -58,16 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         cellEl.textContent = currentPlayer;
         cellEl.classList.add("taken");
 
-        // Check if the small board is won and only assign the winner once
+        // Mark win for the small board (only once)
         const winner = checkWin(smallBoards[smallIndex]);
         if (winner && bigBoard[smallIndex] === null) {
             bigBoard[smallIndex] = winner;
             smallBoardEl.classList.add(`won-${winner}`);
         } else if (isFull(smallBoards[smallIndex]) && bigBoard[smallIndex] === null) {
-            bigBoard[smallIndex] = 'D'; // Mark as draw if full and no winner
+            bigBoard[smallIndex] = 'D';
         }
 
-        // Check for a win or draw on the big board
+        // Check big board win or draw
         const gameWinner = checkWin(bigBoard);
         if (gameWinner) {
             messageEl.textContent = `The winner is: ${gameWinner}!`;
@@ -79,25 +77,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Determine the next small board to redirect to
-        nextSmallTris = bigBoard[cellIndex] === null ? cellIndex : null;
-        highlightNextSmall();
+        // Determine next redirect target
+        nextSmallTris = !isFull(smallBoards[cellIndex]) ? cellIndex : null;
 
-        // Switch the current player
+        highlightNextSmall();
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         messageEl.textContent = `Current Player: ${currentPlayer}`;
     }
 
-    // Visually highlight the next small board to play in
     function highlightNextSmall() {
         document.querySelectorAll('.small-board').forEach((el, index) => {
-            el.style.outline = (nextSmallTris === null || index === nextSmallTris) && bigBoard[index] === null
-                ? '3px solid orange'
-                : 'none';
+            const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
+            const isPlayable = !isFull(smallBoards[index]);
+
+            // Clear previous highlights
+            el.style.outline = 'none';
+
+            if (nextSmallTris === null && isPlayable) {
+                // Free choice — highlight all still playable
+                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+            } else if (nextSmallTris === index && isPlayable) {
+                // Forced redirect to this one
+                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+            }
         });
     }
 
-    // Setup the full game board in the DOM
     function setupBoard() {
         for (let smallIndex = 0; smallIndex < 9; smallIndex++) {
             const sb = document.createElement('div');
