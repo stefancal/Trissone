@@ -69,11 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update the next small board to play in
-        if (!isFull(bigBoard[smallIndex])) {
+        nextSmall = bigBoard[cellIndex] === null ? cellIndex : null;
+
+        /*if (!isFull(bigBoard[smallIndex])) {
             nextSmallTris = cellIndex;
         } else {
             nextSmallTris = null; // If the next small board is full, reset to null (any small board can be played)
-        }
+        } */
+
         highlightNextSmall();
 
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
