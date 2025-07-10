@@ -68,7 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
             smallBoardEl.classList.add(`won-${winner}`);
             smallBoardEl.classList.add('board-won-animate');
 
-            // Remove animation class after animation ends
+            // Create overlay element to show winner
+            const overlay = document.createElement('div');
+            overlay.className = 'win-overlay';
+            overlay.textContent = winner;
+            smallBoardEl.appendChild(overlay);
+
+            // Animation class
             setTimeout(() => {
                 smallBoardEl.classList.remove('board-won-animate');
             }, 1000);
