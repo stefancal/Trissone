@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let smallBoards = Array(9).fill(null).map(() => Array(9).fill(null));
     let bigBoard = Array(9).fill(null);
-    let currentPlayer = 'O';
+    let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
     let nextSmallTris = null;
     let gameOver = false;
 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update the next small board to play in
-        if (!isFull(bigBoard[cellIndex])) {
+        if (!isFull(bigBoard[smallIndex])) {
             nextSmallTris = cellIndex;
         } else {
             nextSmallTris = null; // If the next small board is full, reset to null (any small board can be played)
