@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 const bigBoardEl = document.getElementById('big-board');
 const messageEl = document.getElementById('message');
 
@@ -94,3 +95,5 @@ function setupBoard() {
 }
 
 setupBoard();
+
+});
