@@ -66,8 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (winner && bigBoard[smallIndex] === null) {
             bigBoard[smallIndex] = winner;
             smallBoardEl.classList.add(`won-${winner}`);
-        } else if (isFull(smallBoards[smallIndex]) && bigBoard[smallIndex] === null) {
-            bigBoard[smallIndex] = 'D';
+            smallBoardEl.classList.add('board-won-animate');
+
+            // Remove animation class after animation ends
+            setTimeout(() => {
+                smallBoardEl.classList.remove('board-won-animate');
+            }, 1000);
         }
 
         // Check big board win or draw
