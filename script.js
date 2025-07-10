@@ -70,9 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Create overlay element to show winner
             const overlay = document.createElement('div');
-            overlay.className = 'win-overlay';
+            overlay.className = `win-overlay win-${winner.toLowerCase()}`;
             overlay.textContent = winner;
             smallBoardEl.appendChild(overlay);
+
 
             // Animation class
             setTimeout(() => {
