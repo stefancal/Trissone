@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let smallBoards = Array(9).fill(null).map(() => Array(9).fill(null));
     let bigBoard = Array(9).fill(null);
-    let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
+    let currentPlayer = 'X';
     let nextSmallTris = null;
     let gameOver = false;
 
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             bigBoardEl.appendChild(sb);
         }
-        
+
         highlightNextSmall();
         messageEl.textContent = `Current player ${currentPlayer}`;
     }
