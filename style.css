@@ -97,7 +97,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4em;
+  font-size: 14em;
   font-weight: bold;
   pointer-events: none;
   z-index: 2;
