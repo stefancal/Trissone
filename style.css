@@ -53,3 +53,25 @@ h1 {
   font-size: 1.2em;
   margin-top: 10px;
 }
+
+
+.x-symbol {
+  color: #e74c3c; /* red */
+  font-weight: bold;
+  font-size: 2em;
+  font-family: 'Courier New', monospace;
+  transition: transform 0.2s ease;
+}
+
+.o-symbol {
+  color: #3498db; /* blue */
+  font-weight: bold;
+  font-size: 2em;
+  font-family: 'Georgia', serif;
+  transition: transform 0.2s ease;
+}
+
+.cell.taken {
+  pointer-events: none;
+  transform: scale(1.05);
+}

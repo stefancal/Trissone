@@ -1,4 +1,6 @@
+
 document.addEventListener('DOMContentLoaded', () => {
+    
     const bigBoardEl = document.getElementById('big-board');
     const messageEl = document.getElementById('message');
 
@@ -8,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextSmallTris = null;
     let gameOver = false;
 
+    // Check for a win in the given board
     function checkWin(board) {
         const winningLines = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -16,12 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
 
         for (let [a, b, c] of winningLines) {
-            if (
-                board[a] === board[b] &&
-                board[a] === board[c] &&
-                board[a] !== null &&
-                board[a] !== 'D'
-            ) {
+            if (board[a] === board[b] && board[a] === board[c] && board[a] !== null && board[a] !== 'D') {
                 return board[a];
             }
         }
@@ -29,14 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    // Check if the given board is full
     function isFull(board) {
         return board.every(cell => cell !== null);
     }
 
+    /**
+     * Make a move in the game
+     * @param {*} smallIndex The index of the small board
+     * @param {*} cellIndex The index of the cell in the small board
+     */
     function makeMove(smallIndex, cellIndex) {
         if (gameOver) return;
 
-        // Enforce redirection — disallow playing elsewhere if the destination is not full
+        // Disallow playing elsewhere if the destination is not full
         if (
             nextSmallTris !== null &&
             smallIndex !== nextSmallTris &&
@@ -55,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cellEl = smallBoardEl.querySelector(`.cell[data-ci="${cellIndex}"]`);
         cellEl.textContent = currentPlayer;
         cellEl.classList.add("taken");
+        cellEl.classList.add(currentPlayer === 'X' ? 'x-symbol' : 'o-symbol');
 
         // Mark win for the small board (only once)
         const winner = checkWin(smallBoards[smallIndex]);
@@ -85,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messageEl.textContent = `Current Player: ${currentPlayer}`;
     }
 
+    // Highlight the next small board to play in
     function highlightNextSmall() {
         document.querySelectorAll('.small-board').forEach((el, index) => {
             const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
@@ -103,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Initialize the game board
     function setupBoard() {
         for (let smallIndex = 0; smallIndex < 9; smallIndex++) {
             const sb = document.createElement('div');
