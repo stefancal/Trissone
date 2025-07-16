@@ -123,16 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Highlight the next small board to play in
     function highlightNextSmall() {
         document.querySelectorAll('.small-board').forEach((el, index) => {
-            el.classList.remove('highlight-free', 'highlight-x', 'highlight-o');
+            el.classList.remove('highlight-x', 'highlight-o');
+            
+            const boardIsFull = isFull(smallBoards[index]);
 
-            if (nextSmallTris === null) {
-                // Nessuna evidenziazione obbligatoria
-                return;
-            }
-
-            if (nextSmallTris === index) {
-                // Evidenzia solo la small-board obbligata
-                el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
+            if (nextSmallTris !== null) {
+                if (index === nextSmallTris && !boardIsFull) {
+                    el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
+                }
+            } else {
+                if (!boardIsFull) {
+                    el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
+                }
             }
         });
     }
