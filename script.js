@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightNextSmall() {
         document.querySelectorAll('.small-board').forEach((el, index) => {
             const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
-            const isPlayable = !isFull(smallBoards[index]);
+            const isPlayable = !isFull(smallBoards[index]) && !isWon;
 
             el.classList.remove('highlight-free', 'highlight-won');
 
@@ -132,13 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nextSmallTris === null) {
                 // Free choice
-                el.classList.add(isWon ? 'highlight-free' : 'highlight-free');
+                el.classList.add('highlight-free');
             } else if (nextSmallTris === index) {
-                // Forced to play here, even if already won
+                // Forced to play 
                 el.classList.add('highlight-free');
             }
         });
     }
+
 
     // Initialize the game board
     function setupBoard() {
@@ -182,45 +183,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // Funzione che genera una mossa valida casuale e la esegue
     function makeRandomMove() {
-        // Ottieni piccole board disponibili
         let candidatesBoards = [];
 
         if (nextSmallTris !== null && !isFull(smallBoards[nextSmallTris])) {
             candidatesBoards = [nextSmallTris];
         } else {
-            // Tutte le small board non piene e non vinte
             candidatesBoards = bigBoard
                 .map((v, i) => (v === null && !isFull(smallBoards[i]) ? i : -1))
                 .filter(i => i !== -1);
         }
 
         if (candidatesBoards.length === 0) {
-            // Nessuna mossa possibile, partita finita probabilmente
             messageEl.textContent = 'No moves available!';
             gameOver = true;
             clearInterval(timerInterval);
             return;
         }
 
-        // Scegli random una small board disponibile
         const chosenBoard = candidatesBoards[Math.floor(Math.random() * candidatesBoards.length)];
 
-        // Scegli random una cella libera dentro quella small board
         const freeCells = [];
         smallBoards[chosenBoard].forEach((cell, idx) => {
             if (cell === null) freeCells.push(idx);
         });
 
         if (freeCells.length === 0) {
-            // Non dovrebbe succedere perché abbiamo controllato isFull, ma metti check safety
             return;
         }
 
         const chosenCell = freeCells[Math.floor(Math.random() * freeCells.length)];
 
-        // Esegui la mossa (riusa makeMove ma disabilita il timer per non fare ricorsione infinita)
         makeMove(chosenBoard, chosenCell);
     }
 
