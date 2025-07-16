@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <title>Trissone</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
-  <div id="game-info" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-    <div id="current-player" style="font-size: 1.5rem; font-weight: bold;"></div>
-    <div id="timer" style="font-size: 1.5rem; font-weight: bold;"></div>
+  <div id="game-container" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+
+    <div id="current-player" style="flex: 0 0 150px; font-size: 1.5rem; font-weight: bold; text-align: left;">
+      <!-- Qui viene mostrato il giocatore corrente -->
+    </div>
+
+    <div id="big-board" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
+      <!-- Qui c'è la tabella 3x3 delle piccole board -->
+    </div>
+
+    <div id="timer" style="flex: 0 0 150px; font-size: 1.5rem; font-weight: bold; text-align: right;">
+      <!-- Timer -->
+    </div>
+
   </div>
 
-  <div id="big-board"></div>
-  <div id="message" style="margin-top: 15px; font-size: 1.2rem; text-align: center;"></div>
-
-  <script src="script.js"></script>
 </body>
-</html>

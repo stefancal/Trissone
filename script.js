@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
     let nextSmallTris = null;
     let gameOver = false;
-    let timeLeft = 5;
+    let timeLeft = 60;
     let timerInterval = null;
+
 
     function updateUI() {
         currentPlayerEl.textContent = `Current Player: ${currentPlayer}`;
@@ -164,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startTimer() {
         clearInterval(timerInterval);
+        timeLeft = 20;
         timerEl.textContent = `Time left: ${timeLeft}s`;
 
         timerInterval = setInterval(() => {
