@@ -141,10 +141,10 @@ h1 {
 }
 
 .next-small {
-  box-shadow: 0 0 0 4px gold inset;
+  box-shadow: 0 0 0 4px gold outset;
 }
 
 .next-small-win {
-  box-shadow: 0 0 0 4px green inset;
+  box-shadow: 0 0 0 4px green outset;
 }
 
