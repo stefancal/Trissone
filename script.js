@@ -41,13 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameOver) return;
 
         // Disallow playing elsewhere if the destination is not full
-        if (
-            nextSmallTris !== null &&
-            smallIndex !== nextSmallTris &&
-            !isFull(smallBoards[nextSmallTris])
-        ) {
-            return;
-        }
+        if (nextSmallTris !== null && smallIndex !== nextSmallTris && !isFull(smallBoards[nextSmallTris])) return;
 
         // Prevent playing in already taken cells
         if (smallBoards[smallIndex][cellIndex] !== null) return;
@@ -74,11 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.textContent = winner;
             smallBoardEl.appendChild(overlay);
 
-
-            // Animation class
+            // Animation
             setTimeout(() => {
                 smallBoardEl.classList.remove('board-won-animate');
             }, 1000);
+
+            // Mark as drawn if all cells are filled
+            if (isFull(smallBoards[smallIndex]) && !winner) {
+                bigBoard[smallIndex] = 'D';
+                smallBoardEl.classList.add('drawn');
+                const drawOverlay = document.createElement('div');
+                drawOverlay.className = 'win-overlay win-draw';
+                drawOverlay.textContent = 'D';
+                smallBoardEl.appendChild(drawOverlay);
+            }
         }
 
         // Check big board win or draw
@@ -112,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nextSmallTris === null && isPlayable) {
                 // Free choice — highlight all still playable
-                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+                el.style.outline = isWon ? 'next-small' : 'next-small-win';
             } else if (nextSmallTris === index && isPlayable) {
                 // Forced redirect to this one
-                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+                el.style.outline = isWon ? 'next-small' : 'next-small-win';
             }
         });
     }
