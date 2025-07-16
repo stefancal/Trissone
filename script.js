@@ -126,12 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.remove('highlight-free', 'highlight-x', 'highlight-o');
 
             if (nextSmallTris === null) {
-                // Free choice: evidenzia solo le non piene
-                if (!isFull(smallBoards[index])) {
-                    el.classList.add('highlight-free');
-                }
-            } else if (nextSmallTris === index) {
-                // Forzato a giocare qui, evidenzia col colore del current player
+                // Nessuna evidenziazione obbligatoria
+                return;
+            }
+
+            if (nextSmallTris === index) {
+                // Evidenzia solo la small-board obbligata
                 el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
             }
         });
