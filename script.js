@@ -1,14 +1,17 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     
     const bigBoardEl = document.getElementById('big-board');
     const messageEl = document.getElementById('message');
+    const currentPlayerEl = document.getElementById('current-player'); // Aggiunto per aggiornare correttamente il current player
+    const timerEl = document.getElementById('timer');
 
     let smallBoards = Array(9).fill(null).map(() => Array(9).fill(null));
     let bigBoard = Array(9).fill(null);
     let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
     let nextSmallTris = null;
     let gameOver = false;
+    let timeLeft = 5;
+    let timerInterval = null;
 
     function updateUI() {
         currentPlayerEl.textContent = `Current Player: ${currentPlayer}`;
@@ -80,12 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Mark as drawn if all cells are filled
         if (!winner && bigBoard[smallIndex] === null && isFull(smallBoards[smallIndex])) {
-        bigBoard[smallIndex] = 'D';
-        smallBoardEl.classList.add('drawn');
-        const drawOverlay = document.createElement('div');
-        drawOverlay.className = 'win-overlay win-draw';
-        drawOverlay.textContent = 'D';
-        smallBoardEl.appendChild(drawOverlay);
+            bigBoard[smallIndex] = 'D';
+            smallBoardEl.classList.add('drawn');
+            const drawOverlay = document.createElement('div');
+            drawOverlay.className = 'win-overlay win-draw';
+            drawOverlay.textContent = 'D';
+            smallBoardEl.appendChild(drawOverlay);
         }
 
         // Check big board win or draw
@@ -93,10 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameWinner) {
             messageEl.textContent = `The winner is: ${gameWinner}!`;
             gameOver = true;
+            clearInterval(timerInterval);
             return;
         } else if (isFull(bigBoard)) {
             messageEl.textContent = `It's a draw!`;
             gameOver = true;
+            clearInterval(timerInterval);
             return;
         }
 
@@ -157,13 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
         messageEl.textContent = `Current Player: ${currentPlayer}`;
     }
 
-    const timerEl = document.getElementById('timer');
-    let timeLeft = 60;
-    let timerInterval = null;
-
     function startTimer() {
         clearInterval(timerInterval);
-        timeLeft = 20;
         timerEl.textContent = `Time left: ${timeLeft}s`;
 
         timerInterval = setInterval(() => {
@@ -198,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Nessuna mossa possibile, partita finita probabilmente
             messageEl.textContent = 'No moves available!';
             gameOver = true;
+            clearInterval(timerInterval);
             return;
         }
 
