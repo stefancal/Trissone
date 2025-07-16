@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Highlight the next small board to play in
-    function highlightNextSmall() {
+function highlightNextSmall() {
     document.querySelectorAll('.small-board').forEach((el, index) => {
         el.classList.remove('next-small', 'next-small-win');
 
@@ -113,13 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const isFull = smallBoards[index].every(cell => cell !== null);
         const stillPlayable = !isFull;
 
-        if (nextSmallTris === null && stillPlayable) {
+        if (!stillPlayable) return;
+
+        if (nextSmallTris === null) {
             el.classList.add(isWon ? 'next-small-win' : 'next-small');
-        } else if (nextSmallTris === index && stillPlayable) {
+        } else if (nextSmallTris === index) {
             el.classList.add(isWon ? 'next-small-win' : 'next-small');
         }
     });
     }
+
 
     // Initialize the game board
     function setupBoard() {
