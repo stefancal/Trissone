@@ -106,22 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Highlight the next small board to play in
     function highlightNextSmall() {
-        document.querySelectorAll('.small-board').forEach((el, index) => {
-            const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
-            const isPlayable = !isFull(smallBoards[index]);
+    document.querySelectorAll('.small-board').forEach((el, index) => {
+        el.classList.remove('next-small', 'next-small-win');
 
-            // Clear previous highlights
-            el.style.outline = 'none';
+        const isPlayable = bigBoard[index] === null || bigBoard[index] === 'D';
+        const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
 
-            if (nextSmallTris === null && isPlayable) {
-                // Free choice — highlight all still playable
-                el.classList.add(isWon ? 'next-small' : 'next-small-win');
-            } else if (nextSmallTris === index && isPlayable) {
-                // Forced redirect to this one
-                el.classList.add(isWon ? 'next-small' : 'next-small-win');
-            }
-        });
-    }
+        if (!isPlayable) return; // Skip boards that can't be played anymore.
+
+        if (nextSmallTris === null && isPlayable) {
+            // Free choice — highlight all still playable
+            el.classList.add(isWon ? 'next-small-win' : 'next-small');
+        } else if (nextSmallTris === index && isPlayable) {
+            // Forced redirect to this one
+            el.classList.add(isWon ? 'next-small-win' : 'next-small');
+        }
+    });
+}
 
     // Initialize the game board
     function setupBoard() {
