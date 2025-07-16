@@ -140,10 +140,6 @@ h1 {
   background-color: rgba(128, 128, 128, 0.1);
 }
 
-.highlight-free {
-    transition: box-shadow 0.3s;
-}
-
 .player-x .highlight-free {
     box-shadow: 0 0 10px 3px rgba(201, 19, 0, 0.6); /* rosso X */
 }

@@ -72,16 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 smallBoardEl.classList.remove('board-won-animate');
             }, 1000);
+        }
 
-            // Mark as drawn if all cells are filled
-            if (isFull(smallBoards[smallIndex]) && !winner) {
-                bigBoard[smallIndex] = 'D';
-                smallBoardEl.classList.add('drawn');
-                const drawOverlay = document.createElement('div');
-                drawOverlay.className = 'win-overlay win-draw';
-                drawOverlay.textContent = 'D';
-                smallBoardEl.appendChild(drawOverlay);
-            }
+        // Mark as drawn if all cells are filled
+        if (isFull(smallBoards[smallIndex]) && !winner) {
+            bigBoard[smallIndex] = 'D';
+            smallBoardEl.classList.add('drawn');
+            const drawOverlay = document.createElement('div');
+            drawOverlay.className = 'win-overlay win-draw';
+            drawOverlay.textContent = 'D';
+            smallBoardEl.appendChild(drawOverlay);
         }
 
         // Check big board win or draw
@@ -114,15 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
             const isPlayable = !isFull(smallBoards[index]);
 
-            // Clear previous highlights
             el.classList.remove('highlight-free', 'highlight-won');
 
-            if (isPlayable) {
-                if (nextSmallTris === null) {
-                    el.classList.add(isWon ? 'highlight-won' : 'highlight-free');
-                } else if (nextSmallTris === index) {
-                    el.classList.add(isWon ? 'highlight-won' : 'highlight-free');
-                }
+            if (!isPlayable) return;
+
+            if (nextSmallTris === null) {
+                // Free choice
+                el.classList.add(isWon ? 'highlight-free' : 'highlight-free');
+            } else if (nextSmallTris === index) {
+                // Forced to play here, even if already won
+                el.classList.add('highlight-free');
+            } else if (isWon) {
+                el.classList.add('highlight-won');
             }
         });
     }
