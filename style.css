@@ -139,9 +139,14 @@ h1 {
     box-shadow: 0 0 10px 3px rgba(42, 142, 207, 0.6); /* blu O */
 }
 
-.highlight-won {
-    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.6); /* oro per small board già vinta */
+.small-board.highlight-x {
+    outline: 4px solid blue;
 }
+
+.small-board.highlight-o {
+    outline: 4px solid red;
+}
+
 
 #game-info {
     max-width: 600px; /* o la larghezza del tuo big board */
