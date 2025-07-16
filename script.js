@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messageEl.textContent = `Current Player: ${currentPlayer}`;
 
         highlightNextSmall();
+        startTimer();
     }
 
     // Highlight the next small board to play in
@@ -153,5 +154,31 @@ document.addEventListener('DOMContentLoaded', () => {
         messageEl.textContent = `Current Player: ${currentPlayer}`;
     }
 
+    const timerEl = document.getElementById('timer');
+    let timeLeft = 60;
+    let timerInterval = null;
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = 20;
+        timerEl.textContent = `Time left: ${timeLeft}s`;
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerEl.textContent = `Time left: ${timeLeft}s`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                // Time expired: switch player
+                currentPlayer = startTimer();currentPlayer === 'X' ? 'O' : 'X';
+                document.body.classList.remove('player-x', 'player-o');
+                document.body.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
+                messageEl.textContent = `Time's up! Player switched to: ${currentPlayer}`;
+                highlightNextSmall();
+                startTimer();
+            }
+        }, 1000);
+    }
+
     setupBoard();
+    startTimer();
 });

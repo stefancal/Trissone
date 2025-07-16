@@ -121,8 +121,8 @@ h1 {
 
 .win-overlay.win-draw {
     opacity: 0.3;
-    font-size: 4rem;
-    color: gray;
+    font-size: 14em;
+    color: #8a8a8a;
     position: absolute;
     inset: 0;
     display: flex;
@@ -141,5 +141,12 @@ h1 {
 
 .highlight-won {
     box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.6); /* oro per small board già vinta */
+}
+
+#timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
 }
 
