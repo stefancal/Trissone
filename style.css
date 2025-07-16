@@ -140,10 +140,11 @@ h1 {
   background-color: rgba(128, 128, 128, 0.1);
 }
 
-.next-small{
-  border: 2px dashed gold;
+.next-small {
+  box-shadow: 0 0 0 4px gold inset;
 }
 
 .next-small-win {
-  border: 2px dashed green;
+  box-shadow: 0 0 0 4px green inset;
 }
+
