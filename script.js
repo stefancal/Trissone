@@ -127,14 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const boardIsFull = isFull(smallBoards[index]);
 
-            if (nextSmallTris !== null) {
-                if (index === nextSmallTris && !boardIsFull) {
-                    el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
-                }
-            } else {
-                if (!boardIsFull) {
-                    el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
-                }
+            if (nextSmallTris === null) {
+                // Free choice
+                el.classList.add(isWon ? 'highlight-free' : 'highlight-free');
+            } else if (nextSmallTris === index) {
+                // Forced to play here, even if already won
+                el.classList.add('highlight-free');
+            } else if (isWon) {
+                el.classList.add('highlight-won');
             }
         });
     }
