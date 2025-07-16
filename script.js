@@ -119,7 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!isPlayable) return;
 
-            el.classList.add('highlight-free');
+            if (nextSmallTris === null) {
+                // Free choice
+                el.classList.add(isWon ? 'highlight-free' : 'highlight-free');
+            } else if (nextSmallTris === index) {
+                // Forced to play here, even if already won
+                el.classList.add('highlight-free');
+            }
         });
     }
 
