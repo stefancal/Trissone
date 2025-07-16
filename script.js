@@ -166,17 +166,57 @@ document.addEventListener('DOMContentLoaded', () => {
         timerInterval = setInterval(() => {
             timeLeft--;
             timerEl.textContent = `Time left: ${timeLeft}s`;
+
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                // Time expired: switch player
-                currentPlayer = startTimer();currentPlayer === 'X' ? 'O' : 'X';
-                document.body.classList.remove('player-x', 'player-o');
-                document.body.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
-                messageEl.textContent = `Time's up! Player switched to: ${currentPlayer}`;
-                highlightNextSmall();
+                if (gameOver) return;
+
+                // Time expired: make a random move for currentPlayer
+                makeRandomMove();
                 startTimer();
             }
         }, 1000);
+    }
+
+    // Funzione che genera una mossa valida casuale e la esegue
+    function makeRandomMove() {
+        // Ottieni piccole board disponibili
+        let candidatesBoards = [];
+
+        if (nextSmallTris !== null && !isFull(smallBoards[nextSmallTris])) {
+            candidatesBoards = [nextSmallTris];
+        } else {
+            // Tutte le small board non piene e non vinte
+            candidatesBoards = bigBoard
+                .map((v, i) => (v === null && !isFull(smallBoards[i]) ? i : -1))
+                .filter(i => i !== -1);
+        }
+
+        if (candidatesBoards.length === 0) {
+            // Nessuna mossa possibile, partita finita probabilmente
+            messageEl.textContent = 'No moves available!';
+            gameOver = true;
+            return;
+        }
+
+        // Scegli random una small board disponibile
+        const chosenBoard = candidatesBoards[Math.floor(Math.random() * candidatesBoards.length)];
+
+        // Scegli random una cella libera dentro quella small board
+        const freeCells = [];
+        smallBoards[chosenBoard].forEach((cell, idx) => {
+            if (cell === null) freeCells.push(idx);
+        });
+
+        if (freeCells.length === 0) {
+            // Non dovrebbe succedere perché abbiamo controllato isFull, ma metti check safety
+            return;
+        }
+
+        const chosenCell = freeCells[Math.floor(Math.random() * freeCells.length)];
+
+        // Esegui la mossa (riusa makeMove ma disabilita il timer per non fare ricorsione infinita)
+        makeMove(chosenBoard, chosenCell);
     }
 
     setupBoard();
