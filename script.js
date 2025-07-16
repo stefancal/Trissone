@@ -99,10 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Determine next redirect target
         nextSmallTris = !isFull(smallBoards[cellIndex]) ? cellIndex : null;
 
-        highlightNextSmall();
+        // Switch players
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         document.body.classList.remove('player-x', 'player-o');
         document.body.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
         messageEl.textContent = `Current Player: ${currentPlayer}`;
+
+        highlightNextSmall();
     }
 
     // Highlight the next small board to play in
