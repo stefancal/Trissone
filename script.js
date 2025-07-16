@@ -111,18 +111,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const isPlayable = !isFull(smallBoards[index]);
 
             // Clear previous highlights
-            el.style.outline = 'none';
+            el.classList.remove('highlight-free', 'highlight-won');
 
-            if (nextSmallTris === null && isPlayable) {
-                // Free choice — highlight all still playable
-                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
-            } else if (nextSmallTris === index && isPlayable) {
-                // Forced redirect to this one
-                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+            if (isPlayable) {
+                if (nextSmallTris === null) {
+                    el.classList.add(isWon ? 'highlight-won' : 'highlight-free');
+                } else if (nextSmallTris === index) {
+                    el.classList.add(isWon ? 'highlight-won' : 'highlight-free');
+                }
             }
         });
     }
-
 
     // Initialize the game board
     function setupBoard() {

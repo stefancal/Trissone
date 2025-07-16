@@ -140,11 +140,11 @@ h1 {
   background-color: rgba(128, 128, 128, 0.1);
 }
 
-.next-small {
-  box-shadow: 0 0 0 4px gold outset;
+.highlight-free {
+    outline: 3px solid orange;
 }
 
-.next-small-win {
-  box-shadow: 0 0 0 4px green outset;
+.highlight-won {
+    outline: 2px dashed gold;
 }
 
