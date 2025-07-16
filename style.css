@@ -119,25 +119,16 @@ h1 {
   position: relative;
 }
 
-.win-draw {
-  color: rgba(128, 128, 128, 0.5); /* gray */
-  text-shadow: 0 0 10px rgba(128, 128, 128, 0.3);
-  background-color: rgba(128, 128, 128, 0.1);
-}
-
-.win-draw::before {
-  content: 'D';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5em;
-  font-weight: bold;
-  color: rgba(128, 128, 128, 0.7);
-}
-
-.small-board.drawn {
-  background-color: rgba(128, 128, 128, 0.1);
+.win-overlay.win-draw {
+    opacity: 0.3;
+    font-size: 4rem;
+    color: gray;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .player-x .highlight-free {

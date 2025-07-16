@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Mark as drawn if all cells are filled
-        if (isFull(smallBoards[smallIndex]) && !winner) {
-            bigBoard[smallIndex] = 'D';
-            smallBoardEl.classList.add('drawn');
-            const drawOverlay = document.createElement('div');
-            drawOverlay.className = 'win-overlay win-draw';
-            drawOverlay.textContent = 'D';
-            smallBoardEl.appendChild(drawOverlay);
+        if (!winner && bigBoard[smallIndex] === null && isFull(smallBoards[smallIndex])) {
+        bigBoard[smallIndex] = 'D';
+        smallBoardEl.classList.add('drawn');
+        const drawOverlay = document.createElement('div');
+        drawOverlay.className = 'win-overlay win-draw';
+        drawOverlay.textContent = 'D';
+        smallBoardEl.appendChild(drawOverlay);
         }
 
         // Check big board win or draw
