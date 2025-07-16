@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
         nextSmallTris = !isFull(smallBoards[cellIndex]) ? cellIndex : null;
 
         highlightNextSmall();
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        document.body.classList.remove('player-x', 'player-o');
+        document.body.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
         messageEl.textContent = `Current Player: ${currentPlayer}`;
     }
 

@@ -141,10 +141,18 @@ h1 {
 }
 
 .highlight-free {
-    outline: 3px solid orange;
+    transition: box-shadow 0.3s;
+}
+
+.player-x .highlight-free {
+    box-shadow: 0 0 10px 3px rgba(201, 19, 0, 0.6); /* rosso X */
+}
+
+.player-o .highlight-free {
+    box-shadow: 0 0 10px 3px rgba(42, 142, 207, 0.6); /* blu O */
 }
 
 .highlight-won {
-    outline: 2px dashed gold;
+    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.6); /* oro per small board già vinta */
 }
 
