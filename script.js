@@ -105,22 +105,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Highlight the next small board to play in
-function highlightNextSmall() {
-    document.querySelectorAll('.small-board').forEach((el, index) => {
-        el.classList.remove('next-small', 'next-small-win');
+    function highlightNextSmall() {
+        document.querySelectorAll('.small-board').forEach((el, index) => {
+            const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
+            const isPlayable = !isFull(smallBoards[index]);
 
-        const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
-        const isFull = smallBoards[index].every(cell => cell !== null);
-        const stillPlayable = !isFull;
+            // Clear previous highlights
+            el.style.outline = 'none';
 
-        if (!stillPlayable) return;
-
-        if (nextSmallTris === null) {
-            el.classList.add(isWon ? 'next-small-win' : 'next-small');
-        } else if (nextSmallTris === index) {
-            el.classList.add(isWon ? 'next-small-win' : 'next-small');
-        }
-    });
+            if (nextSmallTris === null && isPlayable) {
+                // Free choice — highlight all still playable
+                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+            } else if (nextSmallTris === index && isPlayable) {
+                // Forced redirect to this one
+                el.style.outline = isWon ? '2px dashed gold' : '3px solid orange';
+            }
+        });
     }
 
 
