@@ -123,19 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Highlight the next small board to play in
     function highlightNextSmall() {
         document.querySelectorAll('.small-board').forEach((el, index) => {
-            const isWon = bigBoard[index] !== null && bigBoard[index] !== 'D';
-            const isPlayable = !isFull(smallBoards[index]) && !isWon;
-
-            el.classList.remove('highlight-free', 'highlight-won');
-
-            if (!isPlayable) return;
+            el.classList.remove('highlight-free', 'highlight-x', 'highlight-o');
 
             if (nextSmallTris === null) {
-                // Free choice
-                el.classList.add(isWon ? 'highlight-free' : 'highlight-free');
+                // Free choice: evidenzia solo le non piene
+                if (!isFull(smallBoards[index])) {
+                    el.classList.add('highlight-free');
+                }
             } else if (nextSmallTris === index) {
-                // Forced to play here, even if already won
-                el.classList.add('highlight-free');
+                // Forzato a giocare qui, evidenzia col colore del current player
+                el.classList.add(currentPlayer === 'X' ? 'highlight-x' : 'highlight-o');
             }
         });
     }
