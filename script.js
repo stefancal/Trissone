@@ -115,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nextSmallTris === null && isPlayable) {
                 // Free choice — highlight all still playable
-                el.style.outline = isWon ? 'next-small' : 'next-small-win';
+                el.classList.add(isWon ? 'next-small' : 'next-small-win');
             } else if (nextSmallTris === index && isPlayable) {
                 // Forced redirect to this one
-                el.style.outline = isWon ? 'next-small' : 'next-small-win';
+                el.classList.add(isWon ? 'next-small' : 'next-small-win');
             }
         });
     }
