@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextSmallTris = null;
     let gameOver = false;
 
+    function updateUI() {
+        currentPlayerEl.textContent = `Current Player: ${currentPlayer}`;
+    }
+
     // Check for a win in the given board
     function checkWin(board) {
         const winningLines = [
@@ -101,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Switch players
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updateUI();
         document.body.classList.remove('player-x', 'player-o');
         document.body.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
         messageEl.textContent = `Current Player: ${currentPlayer}`;
@@ -171,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Time expired: make a random move for currentPlayer
                 makeRandomMove();
-                startTimer();
             }
         }, 1000);
     }

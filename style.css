@@ -143,10 +143,35 @@ h1 {
     box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.6); /* oro per small board già vinta */
 }
 
-#timer {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
+#game-info {
+    max-width: 600px; /* o la larghezza del tuo big board */
+    margin: 0 auto 15px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
+
+#current-player {
+    color: #d33; /* rosso per X */
+}
+
+#current-player {
+    transition: color 0.4s ease;
+}
+
+body.player-o #current-player {
+    color: #3366ff; /* blu per O */
+}
+
+#timer {
+    color: #555;
+    font-family: 'Courier New', Courier, monospace;
+    background: #eee;
+    padding: 5px 15px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    user-select: none;
+    min-width: 80px;
+    text-align: center;
+}
+
 
